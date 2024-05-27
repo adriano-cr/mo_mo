@@ -7,7 +7,8 @@ order = '&order=priceasc'
 
 url = base_url + location + query + order
 
-page_no = browser.first_call(url)
+page_no = browser.get_page_no(url)
 
-print(page_no)
+listings = browser.browse(url, 10)
+print(listings[40])
 

@@ -1,8 +1,9 @@
 import requests
 import re
 from bs4 import BeautifulSoup
+from classes.listing import Listing
 
-def first_call(url):
+def get_page_no(url):
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -19,30 +20,29 @@ def first_call(url):
     
     return int(total_pages)
 
-all_results = ""
 
-def browse(self, url):
+def browse(url, n_pages):
+    all_results = ""
+    
     #for page in range(int(total_pages)):
     for page in range(10):
-        page_no = "&o" + str(page)
+        page_no = "&o" + str(n_pages)
         response = requests.get(url+page_no)
         all_results += response.text
 
     soup = BeautifulSoup(all_results, 'html.parser')
 
-
+    listings = []
     # Find all search results by class name
     class_name = "SmallCard-module_card__3hfzu items__item item-card item-card--small"
     elements = soup.find_all(class_=class_name)
 
-    titles = []
-    prices = []
-
     for element in elements:
         title = element.find(class_="index-module_sbt-text-atom__ed5J9 index-module_token-h6__FGmXw size-normal index-module_weight-semibold__MWtJJ ItemTitle-module_item-title__VuKDo SmallCard-module_item-title__1y5U3")
-        titles.append(title.get_text())
         price = element.find(class_="index-module_price__N7M2x SmallCard-module_price__yERv7 index-module_small__4SyUf")
-        prices.append(price.get_text())
-        print(title.get_text() + "\t" + price.get_text())
+        # print(title.get_text() + "\t" + price.get_text())
+        lis = Listing(title.get_text(), price.get_text(), "description")
+        listings.append(lis)
 
+    return listings
 
