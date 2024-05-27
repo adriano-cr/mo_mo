@@ -9,6 +9,6 @@ url = base_url + location + query + order
 
 page_no = browser.get_page_no(url)
 
-listings = browser.browse(url, 10)
-print(listings[40])
+listings = browser.browse(url, 1)
+print(listings[0])
 

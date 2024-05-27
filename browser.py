@@ -38,11 +38,24 @@ def browse(url, n_pages):
     elements = soup.find_all(class_=class_name)
 
     for element in elements:
-        title = element.find(class_="index-module_sbt-text-atom__ed5J9 index-module_token-h6__FGmXw size-normal index-module_weight-semibold__MWtJJ ItemTitle-module_item-title__VuKDo SmallCard-module_item-title__1y5U3")
-        price = element.find(class_="index-module_price__N7M2x SmallCard-module_price__yERv7 index-module_small__4SyUf")
-        # print(title.get_text() + "\t" + price.get_text())
-        lis = Listing(title.get_text(), price.get_text(), "description")
+        link    = element.find("a")["href"]
+        title   = (element.find(class_="index-module_sbt-text-atom__ed5J9 index-module_token-h6__FGmXw size-normal index-module_weight-semibold__MWtJJ ItemTitle-module_item-title__VuKDo SmallCard-module_item-title__1y5U3")).get_text()
+        price   = (element.find(class_="index-module_price__N7M2x SmallCard-module_price__yERv7 index-module_small__4SyUf")).get_text()
+        descr   = get_desc(link)
+        img     = element.find("img")["src"]
+        lis = Listing(link, title, price, descr, img)
         listings.append(lis)
 
     return listings
 
+def get_desc(link):
+    response = requests.get(link)
+
+    if response.status_code == 200:
+        html_content = response.text
+    else:
+        print(f"Failed to retrieve the webpage. Status code: {response.status_code}")
+
+    soup = BeautifulSoup(html_content, 'html.parser')
+    desc = (soup.find(class_="index-module_sbt-text-atom__ed5J9 index-module_token-body__GXE1P size-normal index-module_weight-book__WdOfA AdDescription_description__gUbvH index-module_preserve-new-lines__ZOcGy")).get_text()
+    return desc
