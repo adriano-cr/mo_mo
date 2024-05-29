@@ -1,14 +1,59 @@
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Outfit', sans-serif;
+}
+
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #660808;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    /*padding: 10px 0;*/
+    box-shadow: 0 2px 4px rgba(58, 56, 56, 0.1);
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+.top-bar h1 {
+    margin: -10px; /* Adjust margin for h1 to remove any default spacing */
+    font-family: "Cormorant", serif;
+    font-optical-sizing: auto;
+    font-weight: 1000;
+    color: white;
+    font-size:50px;
+    font-style: normal;
+}
+
+.sidebar {
+    position: fixed;
+    top: 25px; /* Below the top bar */
+    left: 0;
+    width: 15%;
+    height: 100%;
+    background-color: #ac3838;
+    padding: 20px;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Add vertical scroll if content overflows */
+    z-index: 999; /* Ensure it stays above other content but below the top bar */
+}
+
+.main-content{
+    margin-top: 70px;
 }
 
 .box {
     border: 1px solid grey;
     display: flex;
     padding: 10px;
-    width: 800px;
+    width: 60%;
     align-items: flex-start; /* Ensure items are aligned at the start */
     margin-bottom: 20px;
+    margin-left: 20%;
+}
+.box a{
+    color: #470606;
 }
 .box .image {
     margin-right: 10px;

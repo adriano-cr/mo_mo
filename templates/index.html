@@ -4,20 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <title>Search Results </title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    
+    <title>mo-mo</title>
 </head>
 <body>
-    {% for listing in content %}
-    <div class="box">
-        <img src="{{listing.img}}" alt="Image" width="200" height="200">
-        <div class="content">
-            <div class="title">{{listing.title}}</div>
-            <div class="price">{{listing.price}}</div>
-            <div class="description">{{listing.description}}</div>
-        </div>
+
+    <div class="top-bar">
+        <h1>mo-mo</h1>
     </div>
-    {% endfor %}
+
+    <div class="sidebar">
+        <h2>Risultati della ricerca</h2>
+    </div>
+
+    <div class="main-content">
+        {% for listing in content %}
+        <div class="box">
+            <img src="{{listing.img}}" alt="Image" width="200" height="200">
+            <div class="content">
+                <div class="title">
+                    <a href="{{listing.link}}">{{listing.title}}</a>
+                </div>
+                <div class="price">{{listing.price}}</div>
+                <div class="description">{{listing.description}}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 
 </body>
 
