@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from classes.listing import Listing
 
 def get_page_no(url):
-    response = requests.get(url)
+    response = requests.get(url,verify=False)
 
     if response.status_code == 200:
         html_content = response.text
@@ -27,7 +27,7 @@ def browse(url, n_pages):
     #for page in range(int(total_pages)):
     for page in range(10):
         page_no = "&o" + str(n_pages)
-        response = requests.get(url+page_no)
+        response = requests.get(url+page_no,verify=False)
         all_results += response.text
 
     soup = BeautifulSoup(all_results, 'html.parser')
@@ -40,7 +40,10 @@ def browse(url, n_pages):
     for element in elements:
         link    = element.find("a")["href"]
         title   = (element.find(class_="index-module_sbt-text-atom__ed5J9 index-module_token-h6__FGmXw size-normal index-module_weight-semibold__MWtJJ ItemTitle-module_item-title__VuKDo SmallCard-module_item-title__1y5U3")).get_text()
-        price   = (element.find(class_="index-module_price__N7M2x SmallCard-module_price__yERv7 index-module_small__4SyUf")).get_text()
+        try:
+            price   = (element.find(class_="index-module_price__N7M2x SmallCard-module_price__yERv7 index-module_small__4SyUf")).get_text()
+        except:
+            price = "n/a"
         descr   = get_desc(link)
         img     = element.find("img")["src"]
         lis = Listing(link, title, price, descr, img)
@@ -49,7 +52,7 @@ def browse(url, n_pages):
     return listings
 
 def get_desc(link):
-    response = requests.get(link)
+    response = requests.get(link,verify=False)
 
     if response.status_code == 200:
         html_content = response.text

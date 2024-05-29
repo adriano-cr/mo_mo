@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="C:\Users\Utente\Documents\code\mo-mo\templates\styles.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <title>Search Results </title>
 </head>
 <body>
-
+    {% for listing in content %}
     <div class="box">
-        <img src={{img_url}} alt="Image" width="50" height="50">
+        <img src="{{listing.img}}" alt="Image" width="200" height="200">
         <div class="content">
-            <div class="title">{{title}}</div>
-            <div class="description">{{description}}</div>
+            <div class="title">{{listing.title}}</div>
+            <div class="price">{{listing.price}}</div>
+            <div class="description">{{listing.description}}</div>
         </div>
     </div>
+    {% endfor %}
 
 </body>
 
