@@ -1,6 +1,7 @@
 import browser
+import asyncio
 
-def fai_le_cose():
+async def fai_le_cose():
     base_url = 'https://www.subito.it/'
     location = 'annunci-lombardia/vendita/usato/milano/milano/'
     query = '?q=seiko'
@@ -11,8 +12,12 @@ def fai_le_cose():
 
     page_no = browser.get_page_no(url)
 
-    listings = browser.browse(url, 1)
+    listings = await browser.browse(url, 1)
     return listings
     # print(listings[0])
+    
+if __name__ == "__fai_le_cose__":
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(fai_le_cose())
 
 
