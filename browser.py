@@ -1,6 +1,7 @@
 import requests
 import re
-from bs4 import BeautifulSoup
+import lxml
+from lxml import etree
 from classes.listing import Listing
 
 def get_page_no(url):
@@ -30,22 +31,25 @@ def browse(url, n_pages):
         response = requests.get(url+page_no,verify=False)
         all_results += response.text
 
-    soup = BeautifulSoup(all_results, 'html.parser')
+    parser = etree.HTMLParser()
+    tree = etree.fromstring(all_results, parser)
 
     listings = []
     # Find all search results by class name
-    class_name = "SmallCard-module_card__3hfzu items__item item-card item-card--small"
-    elements = soup.find_all(class_=class_name)
+    class_name = 'SmallCard-module_card__3hfzu items__item item-card item-card--small'
+    elements = tree.xpath("//*[@class='"+class_name+"']")
 
     for element in elements:
-        link    = element.find("a")["href"]
-        title   = (element.find(class_="index-module_sbt-text-atom__ed5J9 index-module_token-h6__FGmXw size-normal index-module_weight-semibold__MWtJJ ItemTitle-module_item-title__VuKDo SmallCard-module_item-title__1y5U3")).get_text()
+        link    = element.find(".//a").get("href")
+        class_name = "index-module_sbt-text-atom__ed5J9 index-module_token-h6__FGmXw size-normal index-module_weight-semibold__MWtJJ ItemTitle-module_item-title__VuKDo SmallCard-module_item-title__1y5U3"
+        title   = element.find(".//*[@class='"+class_name+"']").text
         try:
-            price   = (element.find(class_="index-module_price__N7M2x SmallCard-module_price__yERv7 index-module_small__4SyUf")).get_text()
+            class_name = "index-module_price__N7M2x SmallCard-module_price__yERv7 index-module_small__4SyUf"
+            price   = element.find(".//*[@class='"+class_name+"']").text
         except:
             price = "n/a"
         descr   = get_desc(link)
-        img     = element.find("img")["src"]
+        img     = element.find(".//img").get("src")
         lis = Listing(link, title, price, descr, img)
         listings.append(lis)
 
@@ -59,6 +63,8 @@ def get_desc(link):
     else:
         print(f"Failed to retrieve the webpage. Status code: {response.status_code}")
 
-    soup = BeautifulSoup(html_content, 'html.parser')
-    desc = (soup.find(class_="index-module_sbt-text-atom__ed5J9 index-module_token-body__GXE1P size-normal index-module_weight-book__WdOfA AdDescription_description__gUbvH index-module_preserve-new-lines__ZOcGy")).get_text()
+    parser = etree.HTMLParser()
+    tree = etree.fromstring(html_content, parser)
+    class_name = "index-module_sbt-text-atom__ed5J9 index-module_token-body__GXE1P size-normal index-module_weight-book__WdOfA AdDescription_description__gUbvH index-module_preserve-new-lines__ZOcGy"
+    desc = tree.find(".//*[@class='"+class_name+"']").text
     return desc
