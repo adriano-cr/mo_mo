@@ -8,7 +8,7 @@ body {
     left: 0;
     width: 100%;
     height: 50px;
-    background-color: #660808;
+    background-color: #085066;
     color: rgb(0, 0, 0);
     text-align: center;
     box-shadow: 0 2px 4px rgba(58, 56, 56, 0.1);
@@ -42,7 +42,7 @@ body {
     left: 0;
     width: 15%;
     height: 100%;
-    background-color: #ac3838;
+    background-color: #3895ac;
     padding: 20px;
     box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
     overflow-y: auto; /* Add vertical scroll if content overflows */
@@ -86,4 +86,26 @@ body {
 }
 .box .description {
     color: grey;
+}
+
+button {
+    border: none;          
+    border-radius: 12px;   
+    padding: 10px 20px;    
+    background-color: #419aaa; 
+    color: white;         
+    cursor: pointer;       
+    font-size: 16px;      
+  }
+  
+button:hover {
+    background-color: #4574a0; 
+  }
+  
+.button-div {
+    height: 100%; /* Make sure the body and html are 100% of the viewport height */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Apply flexbox to the body */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
 }

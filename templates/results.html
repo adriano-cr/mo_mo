@@ -11,15 +11,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../static/images/favicon.png">
     
-    <title>mo-mo // Home</title>
+    <title>mo-mo // "{{search_title}}"</title>
 </head>
-
 <body>
-    <div class="button-div">
-        <form action="{{ url_for('trigger_function') }}" method="post">
-            <button type="submit">Bottone delle magie</button>
-        </form>
+
+    <div class="top-bar">
+        <h1>mo-mo</h1>
     </div>
+    <div class="top-bar-dropshadow">
+    </div>
+
+    <div class="sidebar">
+        <h2>Hai cercato:</h2>
+        <h2>"{{search_title}}"</h2>
+    </div>
+
+    <div class="main-content">
+        {% for listing in content %}
+        <div class="box">
+            <img src="{{listing.img}}" alt="Image" width="200" height="200">
+            <div class="content">
+                <div class="title">
+                    <a href="{{listing.link}}">{{listing.title}}</a>
+                </div>
+                <div class="price">{{listing.price}}</div>
+                <div class="description">{{listing.description}}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
 </body>
 
 </html>
