@@ -14,11 +14,21 @@
     <title>mo-mo // Home</title>
 </head>
 
+<script>
+    function startSearch() {
+        // Show the loading page
+        window.location.href = "/loading";
+
+        // Send the search request
+        fetch('/launch_search', {
+            method: 'POST'
+        })
+    }
+</script>
+
 <body>
     <div class="button-div">
-        <form action="{{ url_for('trigger_function') }}" method="post">
-            <button type="submit">Bottone delle magie</button>
-        </form>
+            <button onclick="startSearch()">Bottone delle magie</button>
     </div>
 </body>
 

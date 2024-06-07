@@ -10,15 +10,15 @@ search_title = "seiko automatico"
 def home():
     return render_template('index.html')
 
-@app.route('/trigger_function', methods=['POST'])
-def trigger_function():
-    launch_search()
+@app.route('/loading', methods=['GET'])
+def loading():
     return render_template('loading.html')
 
+@app.route('/launch_search', methods=['POST'])
 def launch_search():
     le_cose = fai_le_cose(search_title)
-    # return render_template('index.html', title=le_cose.title, description=le_cose.description, img_url=le_cose.img)
-    return render_template('results.html', content = le_cose, search_title = search_title)
+    # return render_template('results.html', content = le_cose, search_title = search_title)
+    return redirect('results.html', content = le_cose, search_title = search_title)
 
 if __name__ == '__main__':
     app.run(debug=True)
