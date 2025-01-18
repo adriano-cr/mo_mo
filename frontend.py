@@ -12,7 +12,10 @@ def home():
 
 @app.route('/trigger_function', methods=['POST'])
 def trigger_function():
+    loading_screen()
     launch_search()
+    
+def loading_screen():
     return render_template('loading.html')
 
 def launch_search():
