@@ -109,3 +109,31 @@ button:hover {
     justify-content: center; /* Center items horizontally */
     align-items: center; /* Center items vertically */
 }
+
+.logo-container {
+    margin-left: 47%;
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+}
+
+.loading-text{
+    margin-top:20%;
+    text-align:center;
+}
+
+#logo {
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
